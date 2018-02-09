@@ -7,7 +7,7 @@
         <h2>{{{question}}}</h2>
         <form id="questionBox">
           {{#each optionsToDisplay}}
-            <input type="radio" name="question" class="answers" id="answer{{{@index}}}" value="{{{this}}}"><label for="answer{{{@index}}}">{{{this}}}</label>
+            <input type="radio" name="question" class="answers" id="answer{{{@index}}}" value="{{{this.correct}}}"><label for="answer{{{@index}}}">{{{this.answer}}}</label>
             <br/>
           {{/each}}
 

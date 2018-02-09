@@ -15,13 +15,46 @@ app.get("/quiz", function(req,res){
     return response.json();
   })
   .then(function(json){
+    //
+    // let potentialAnswersObject = {};
+    // potentialAnswersObject[json.results[0].correct_answer] = true;
+    //
+    //
+    // json.results[0].incorrect_answers.forEach(function(item){
+    //   console.log(item);
+    //   potentialAnswersObject[item] = false;
+    // })
+
+    // console.log(potentialAnswersObject);
+
+
     let potentialAnswersArray = [].concat(json.results[0].incorrect_answers);
     potentialAnswersArray.push(json.results[0].correct_answer);
 
     console.log(potentialAnswersArray);
     json.results[0].optionsToDisplay = randomiseAnswers(potentialAnswersArray);
+
+    potentialAnswersArray.forEach(function(item, index){
+      console.log(item);
+      let miniObject = {};
+      miniObject.answer = item;
+
+      if(item == json.results[0].correct_answer){
+        miniObject.correct = true;
+      } else {
+        miniObject.correct = false;
+      }
+
+      potentialAnswersArray[index] = miniObject;
+
+    });
+
+
+
     //res.json(json.results);
+    // json.results[0].optionsObject = potentialAnswersObject;
     console.log(json.results[0]);
+
     res.render("display-question", json.results[0]);
   })
   .catch(function(error){
