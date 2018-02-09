@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>QuizMachine</title>
+    </head>
+    <body>
+        <h2>{{{question}}}</h2>
+        <form id="questionBox">
+          {{#each optionsToDisplay}}
+            <input type="radio" name="question" class="answers" id="answer{{{@index}}}" value="{{{this}}}"><label for="answer{{{@index}}}">{{{this}}}</label>
+            <br/>
+          {{/each}}
+
+          <button type="submit">Submit Answer</button>
+        </form>
+
+
+        <script src="/static/browser-end.js"></script>
+    </body>
+</html>
