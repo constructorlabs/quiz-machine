@@ -15,19 +15,6 @@ app.get("/quiz", function(req,res){
     return response.json();
   })
   .then(function(json){
-    //
-    // let potentialAnswersObject = {};
-    // potentialAnswersObject[json.results[0].correct_answer] = true;
-    //
-    //
-    // json.results[0].incorrect_answers.forEach(function(item){
-    //   console.log(item);
-    //   potentialAnswersObject[item] = false;
-    // })
-
-    // console.log(potentialAnswersObject);
-
-
     let potentialAnswersArray = [].concat(json.results[0].incorrect_answers);
     potentialAnswersArray.push(json.results[0].correct_answer);
 
@@ -49,10 +36,6 @@ app.get("/quiz", function(req,res){
 
     });
 
-
-
-    //res.json(json.results);
-    // json.results[0].optionsObject = potentialAnswersObject;
     console.log(json.results[0]);
 
     res.render("display-question", json.results[0]);

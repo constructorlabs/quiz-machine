@@ -7,18 +7,25 @@ function sendInfo(event){
   event.preventDefault();
 
   console.log(answerList);
-  checkForSelection();
+  var isTrue = (checkForSelection() == 'true')
 
-  // radio buttons have value checked
+  if(isTrue){
+    alert ("correct");
+  } else {
+    alert ("wrong. Boo");
+  }
 
 }
 
 function checkForSelection(){
+  var itemValue;
+
   Array.from(answerList).forEach(function(item){
     if(item.checked){
       console.log(item.value);
-      console.log(currentQuestion);
-      return item.value;
+      itemValue = item.value;
     }
   });
+
+  return itemValue;
 }
