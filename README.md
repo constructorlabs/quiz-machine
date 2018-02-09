@@ -26,6 +26,8 @@ Extensions
 * Implement a high score table, which displays names of players with highest scores as well as the time and date of their score
 * Display statistics about player performance such as total questions played, average score, most popular category, category with highest percentage of correct etc.
 
+Submission
+
 * Document your solution in a README.md
 * Make frequent commits, at least after each feature and push to origin
 * Create a pull request after first push
