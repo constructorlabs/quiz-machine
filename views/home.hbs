@@ -1,0 +1,11 @@
+{{> page_start title='Quiz Machine' }}
+<h1>Quiz Machine</h1>
+<p class="question">
+{{{question}}}
+</p>
+<div class="answers">
+<form id="form-answers">
+{{#each answers}}
+	<input type="radio" name="question" id="answer-{{@index}}" value="{{{this}}}"> <label for="answer-{{@index}}">{{{this}}}</label><br />
+{{/each}}
+{{> page_end }}
