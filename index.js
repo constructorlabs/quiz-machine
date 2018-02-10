@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/questionData', (req, res) => {
-	getQuestionData(req, res);
+	fetchQuestionFromApi(req, res);
 })
 
 app.get('/datatest', (req, res) => {
@@ -79,7 +79,7 @@ function shuffle (array) {
 
 // Need to store the correct answer
 
-function getQuestionData (req, res) {
+function fetchQuestionFromApi (req, res) {
 	let difficulty = 'easy';
 
 	let fetchUrl = `https://opentdb.com/api.php?amount=1&category=18&difficulty=${difficulty}`;
