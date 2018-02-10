@@ -4,7 +4,8 @@ const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 
 const storage = {
-  counter: 0
+  counter: 0,
+  currentQuestion: null,
 }
 
 app.use(bodyParser.json());
@@ -13,7 +14,7 @@ app.set('view engine', 'hbs');
 app.use('/static', express.static('static'));
 
 
-app.get('/', function(req, res) {
+app.get('/temp', function(req, res) {
   fetch('https://opentdb.com/api.php?amount=1')
   .then(function(response){
     return response.json();
@@ -25,6 +26,24 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/', function(req, res) {
+  res.render('mainPage', req.body);
+});
+
+app.get('/get-question', function(req, res) {
+  if (storage.currentQuestion === null) {
+    fetch('https://opentdb.com/api.php?amount=1')
+    .then(function(response){
+      return response.json();
+    }).then(function(data){
+      res.json(data.results[0]);
+      storage.currentQuestion = data.results[0];
+    });
+  }
+  else {
+    res.json(storage.currentQuestion);
+  }
+});
 
 // app.post('/', function(req, res) {
 //   fetch('https://opentdb.com/api.php?amount=1')
