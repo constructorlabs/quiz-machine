@@ -88,9 +88,7 @@ function renderAnswerResponse (data) {
 }
 
 function prepPage () {
-	document.getElementById('data-button').addEventListener('click', () => {
-		getQuestionData();
-	})
+	getQuestionData();
 
 	document.getElementById('check-answer-button').addEventListener('click', () => {
 		checkAnswer();

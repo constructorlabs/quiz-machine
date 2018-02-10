@@ -22,7 +22,7 @@ hbs.registerHelper( 'concat', (...args) => {
 });
 
 app.get('/', (req, res) => {
-	showHome(req, res);
+	res.render('home');
 });
 
 app.get('/questionData', (req, res) => {
@@ -38,31 +38,6 @@ app.post('/checkAnswer', (req, res) => {
 });
 
 // ---------------------------------------------------------------------------
-
-function showHome (req, res) {
-	let difficulty = 'easy';
-
-	let fetchUrl = `https://opentdb.com/api.php?amount=1&category=18&difficulty=${difficulty}`;
-
-	fetch(fetchUrl)
-		.then(response => {
-			return response.json();
-		})
-		.then(json => {
-			let output = {
-				difficulty : difficulty,
-				question : json.results[0].question,
-				answers : mergeAnswers(json.results)
-			};
-			console.log(output);
-			res.render('home', output);
-		})
-		.catch(error => {
-			res.status(500).json(
-				{ error: `Couldn't get questions: ${fetchUrl}` }
-			);
-		});
-}
 
 function mergeAnswers (input) {
 	let data = input[0];

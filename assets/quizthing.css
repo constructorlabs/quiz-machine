@@ -2,9 +2,8 @@ body {
 	margin: 1em;
 }
 
-#data-test {
-	font-family: Consolas, "Courier New", Monaco, monospace;
-	white-space: pre;
+* {
+	font-family: "Trebuchet MS", serif;
 }
 
 #difficulty {

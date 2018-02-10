@@ -1,16 +1,11 @@
 {{> page_start title='QuizThing' }}
 <h1>QuizThing</h1>
-<p>
-Questions answered: X<br />
-Got right: X<br />
-Got wrong: X<br />
-<p class="question">
-{{{question}}}
-</p>
-<div class="answers">
+<div id="data-test"></div>
+<div id="difficulty"></div>
+<div id="question"></div>
 <form id="form-answers">
-{{#each answers}}
-	<input type="radio" name="question" id="answer-{{@index}}" value="{{{this}}}"> <label for="answer-{{@index}}">{{{this}}}</label><br />
-{{/each}}
+<div id="answers"></div>
 </form>
-{{> page_end }}
+<button id="check-answer-button">Check answer</button>
+<div id="result"></div>
+<script type="text/javascript" src="/assets/quizthing.js"></script>
