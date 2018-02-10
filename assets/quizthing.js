@@ -17,9 +17,7 @@ function shuffle (array) {
 
 // Need to store the correct answer
 
-function getQuestionData (req, res) {
-	let difficulty = 'easy';
-
+function getQuestionData () {
 	let fetchUrl = 'http://localhost:8080/questionData';
 
 	fetch(fetchUrl)
@@ -28,7 +26,7 @@ function getQuestionData (req, res) {
 		})
 		.then(json => {
 			document.getElementById('data-test').innerHTML =
-				json.stringify(json, null, 2);
+				JSON.stringify(json, null, 2);
 		})
 		.catch(error => {
 			document.write(`Couldn't get questions: ${fetchUrl}`);
