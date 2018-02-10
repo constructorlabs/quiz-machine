@@ -27,11 +27,15 @@ app.get('/', (req, res) => {
 
 app.get('/questionData', (req, res) => {
 	fetchQuestionFromApi(req, res);
-})
+});
 
 app.get('/datatest', (req, res) => {
 	res.render('datatest');
-})
+});
+
+app.post('/checkAnswer', (req, res) => {
+	checkAnswer(req, res);
+});
 
 // ---------------------------------------------------------------------------
 
@@ -89,6 +93,8 @@ function fetchQuestionFromApi (req, res) {
 			return response.json();
 		})
 		.then(json => {
+			storage.correctAnswer = json.results[0].correct_answer;
+
 			res.json({
 				difficulty : difficulty,
 				question : json.results[0].question,
@@ -102,8 +108,17 @@ function fetchQuestionFromApi (req, res) {
 		});
 }
 
+function checkAnswer (req, res) {
+	let check = req.body.check;
+	let correct = storage.correctAnswer;
+
+	let result = check === correct ? 'right' : 'wrong';
+	console.log('Choice: "' + correct + '", result: ' + result);
+	res.json({ 'result' : result });
+}
+
 // --------------------------------------------------------------------------
 
 app.listen(8080, function () {
-		console.log('Starting Express server on port 8080.');
+	console.log('Starting Express server on port 8080.');
 });

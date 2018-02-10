@@ -17,3 +17,16 @@ body {
 	margin: 1em 0;
 	font-weight: bold;
 }
+
+#check-answer-button {
+	background-color: #6cf;
+	border-top: none;
+	border-left: none;
+	border-right-color: #eee;
+	border-bottom-color: #eee;
+	border-radius: 0.25em;
+	margin: 1em 0 0 0;
+	padding: 0.5em;
+	font-weight: bold;
+	text-shadow: 0.05em 0.05em 0 rgba(255, 255, 255, 1);
+}
