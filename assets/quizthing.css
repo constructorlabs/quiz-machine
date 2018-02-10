@@ -30,3 +30,13 @@ body {
 	font-weight: bold;
 	text-shadow: 0.05em 0.05em 0 rgba(255, 255, 255, 1);
 }
+
+#result {
+	margin: 1em auto;
+	padding: 1em;
+	border: 4px dashed #000;
+	width: 50%;
+	font-weight: bold;
+	font-size: 1.5em;
+	text-align: center;
+}

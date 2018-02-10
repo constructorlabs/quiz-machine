@@ -65,8 +65,7 @@ function checkAnswer () {
 			})
 		})
 		.then(response => {
-			console.log(response.body);
-			return response.json;
+			return response.json();
 		})
 		.then(json => {
 			renderAnswerResponse(json);
@@ -77,7 +76,15 @@ function checkAnswer () {
 }
 
 function renderAnswerResponse (data) {
-	document.getElementById('result').innerHTML = JSON.stringify(data);
+	let result = document.getElementById('result');
+
+	if (data.correct == 1) {
+		result.innerHTML = "That's right!";
+	} else {
+		result.innerHTML = "Sorry, try again.";
+	}
+
+	result.style.visibility = 'visible';
 }
 
 function prepPage () {
@@ -90,6 +97,7 @@ function prepPage () {
 	})
 
 	document.getElementById('check-answer-button').style.visibility = 'hidden';
+	document.getElementById('result').style.visibility = 'hidden';
 }
 
 prepPage();

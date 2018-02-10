@@ -109,12 +109,8 @@ function fetchQuestionFromApi (req, res) {
 }
 
 function checkAnswer (req, res) {
-	let check = req.body.check;
-	let correct = storage.correctAnswer;
-
-	let result = check === correct ? 'right' : 'wrong';
-	console.log('Choice: "' + correct + '", result: ' + result);
-	res.json({ 'result' : result });
+	let correct = req.body.check === storage.correctAnswer ? 1 : 0;
+	res.json({ 'correct' : correct });
 }
 
 // --------------------------------------------------------------------------
