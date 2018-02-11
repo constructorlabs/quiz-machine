@@ -115,7 +115,7 @@ function renderAnswerResponse (data) {
 	if (data.correct == 1) {
 		// To do:
 		// - update score
-		result.innerHTML = "That's right!";
+		result.innerHTML = 'That\'s right!';
 
 		let actionButton = document.getElementById('action-button');
 		actionButton.innerHTML = 'Next question';
@@ -126,7 +126,7 @@ function renderAnswerResponse (data) {
 		// - allow (answers-1) tries
 		// - if max tries hit, replace answer check button
 		//   with button for next question
-		result.innerHTML = "Sorry, try again.";
+		result.innerHTML = 'Try again!';
 	}
 
 	result.style.border = '4px dashed #000';

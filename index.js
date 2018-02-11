@@ -71,15 +71,15 @@ function fetchStoredQuestion (req, res) {
 }
 
 function fetchNewQuestion (req, res) {
-	let difficulty;
-	if (storage.difficulty) {
-		difficulty = storage.difficulty;
-	} else {
-		difficulty = 'easy';
-		storage.difficulty = difficulty;
-	}
+	let difficulty = undefined, category = undefined;
 
-	let fetchUrl = `https://opentdb.com/api.php?amount=1&category=18&difficulty=${difficulty}`;
+	if (!storage.difficulty) storage.difficulty = 'easy';
+	difficulty = storage.difficulty;
+
+	if (!storage.category) storage.category = 18;
+	category = storage.category;
+
+	let fetchUrl = `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}`;
 
 	fetch(fetchUrl)
 		.then(response => {
@@ -110,6 +110,7 @@ function fetchNewQuestion (req, res) {
 function checkAnswer (req, res) {
 	let correct = 0;
 
+	// To do: bump difficulty at 10, 20
 	if (req.body.check === storage.correctAnswer) {
 		correct = 1;
 		storage.score++;
