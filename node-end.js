@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const fetch = require('node-fetch');
 
+const answerHelpers = require('./libs/answerHelpers.js');
+const makeUpPotentialAnswersArray = answerHelpers.makeUpPotentialAnswersArray;
+const randomiseAnswers = answerHelpers.randomiseAnswers;
 
 let score = 0;
 let seenQuestions = [];
@@ -36,18 +39,10 @@ var getQuestion = function() {
         let question = json.results[0].question;
         let optionsToDisplay = randomiseAnswers(potentialAnswersArray);
 
-        console.log("second: ", optionsToDisplay);
-
-        // console.log(seenQuestions);
-
         if (seenQuestions.indexOf(question) > -1) {
-          // console.log("question that is already there: ",  question);
           resolve(getQuestion());
         } else {
           seenQuestions.push(question);
-
-          // console.log('have a question');
-          // console.log(question);
 
           let questionJson = {
             score: 0,
@@ -83,49 +78,3 @@ app.post("/answer", function(req, res, next) {
     });
   });
 });
-
-
-function makeUpPotentialAnswersArray(objectWithQuestionDetails) {
-
-  let potentialAnswersArray = [].concat(objectWithQuestionDetails.incorrect_answers);
-  potentialAnswersArray.push(objectWithQuestionDetails.correct_answer);
-
-  console.log("first: ", potentialAnswersArray);
-
-  potentialAnswersArray.forEach(function(item, index) {
-    let miniObject = {};
-    miniObject.answer = item;
-
-    if (item == objectWithQuestionDetails.correct_answer) {
-      miniObject.correct = true;
-    } else {
-      miniObject.correct = false;
-    }
-
-    console.log(potentialAnswersArray);
-    potentialAnswersArray[index] = miniObject;
-
-  });
-
-  return potentialAnswersArray;
-
-}
-
-function randomiseAnswers(arrayOfAnswers) {
-  var currentIndex = arrayOfAnswers.length,
-    temporaryValue,
-    randomIndex;
-
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    temporaryValue = arrayOfAnswers[currentIndex];
-    arrayOfAnswers[currentIndex] = arrayOfAnswers[randomIndex];
-    arrayOfAnswers[randomIndex] = temporaryValue;
-  }
-  return arrayOfAnswers;
-}
-
-module.exports.randomiseAnswers = randomiseAnswers;
-module.exports.makeUpPotentialAnswersArray = makeUpPotentialAnswersArray;
