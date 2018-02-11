@@ -43,6 +43,21 @@ function getQuestionData () {
 		});
 }
 
+function startOver () {
+	let fetchUrl = 'http://localhost:8080/startOver';
+
+	fetch(fetchUrl)
+		.then(response => {
+			return response.json();
+		})
+		.then(json => {
+			renderQuestionData(json);
+		})
+		.catch(error => {
+			document.write(`Couldn't get question: ${fetchUrl}`);
+		});
+}
+
 function renderQuestionData (data) {
 	document.getElementById('difficulty-value').innerHTML = data.difficulty;
 	document.getElementById('questions-answered').innerHTML = data.score;
@@ -73,7 +88,7 @@ function renderQuestionData (data) {
 		answerChoiceBlock.appendChild(answerChoiceLabel);
 	});
 
-	switchButtonToCheckAnswer();
+	switchButton('Check answer', '#6fc', getQuestionDataListener, checkAnswerListener);
 }
 
 function checkAnswer () {
@@ -106,34 +121,22 @@ function checkAnswer () {
 
 function renderAnswerResponse (data) {
 	if (data.correct == 1) {
-		switchButtonToNextQuestion();
+		switchButton('You got it!', '#6cf', checkAnswerListener, getQuestionDataListener);
 	} else {
 		if (data.triesMade < data.triesAllowed) {
-			switchButtonToCheckAnswer(1);
+			switchButton('Try again!', '#6fc', getQuestionDataListener, checkAnswerListener)
 		} else {
-			// To do:
-			// - keep track of tried answers and highlight
-			//   the right one at this point
-			// - reset score to 0
-			switchButtonToNextQuestion(1);
+			switchButton('Sorry, you didn\'t get it.', '#6cf', checkAnswerListener, startOverListener);
 		}
 	}
 }
 
-function switchButtonToCheckAnswer (retry) {
+function switchButton (label, backgroundColor, removeListener, addListener) {
 	let actionButton = document.getElementById('action-button');
-	actionButton.innerHTML = retry ? 'Try again!' : 'Check answer';
-	actionButton.style.backgroundColor = '#6fc';
-	actionButton.removeEventListener('click', getQuestionDataListener);
-	actionButton.addEventListener('click', checkAnswerListener);
-}
-
-function switchButtonToNextQuestion (failed) {
-	let actionButton = document.getElementById('action-button');
-	actionButton.innerHTML = failed ? 'Sorry, you didn\'t get it.' : 'You got it!';
-	actionButton.style.backgroundColor = '#6cf';
-	actionButton.removeEventListener('click', checkAnswerListener);
-	actionButton.addEventListener('click', getQuestionDataListener);
+	actionButton.innerHTML = label;
+	actionButton.style.backgroundColor = backgroundColor;
+	actionButton.removeEventListener('click', removeListener);
+	actionButton.addEventListener('click', addListener);
 }
 
 function checkAnswerListener () {
@@ -142,6 +145,10 @@ function checkAnswerListener () {
 
 function getQuestionDataListener () {
 	getQuestionData();
+}
+
+function startOverListener () {
+	startOver();
 }
 
 function prepPage () {

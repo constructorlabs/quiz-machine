@@ -34,6 +34,10 @@ app.get('/newQuestion', (req, res) => {
 	fetchNewQuestion(req, res);
 });
 
+app.get('/startOver', (req, res) => {
+	fetchNewQuestion(req, res, 1);
+});
+
 app.post('/checkAnswer', (req, res) => {
 	checkAnswer(req, res);
 });
@@ -72,9 +76,11 @@ function fetchStoredQuestion (req, res) {
 	};
 }
 
-function fetchNewQuestion (req, res) {
+function fetchNewQuestion (req, res, startOver) {
 	// To do: user chooses
 	if (!storage.category) storage.category = 18;
+
+	if (startOver) storage.score = 0;
 
 	if (storage.score >= 20) {
 		storage.difficulty = 'hard';
