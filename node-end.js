@@ -26,7 +26,7 @@ app.get("/quiz", function(req, res) {
       })
       .catch(function(error) {
         res.status(500).json({
-          error: "We failed our task"
+          error: "We're sorry. Something is broken."
         });
       });
     }
