@@ -9,20 +9,26 @@ const randomiseAnswers = answerHelpers.randomiseAnswers;
 
 let score = 0;
 let seenQuestions = [];
+let questionMemory;
 
 app.use(bodyParser.json()); // parse incoming JSON
 app.use('/static', express.static('static'));
 app.set('view engine', 'hbs'); // use Handlebars as a view engine
 
 app.get("/quiz", function(req, res) {
-  getQuestion().then(function(questionJson) {
-      res.render("display-question", questionJson);
-    })
-    .catch(function(error) {
-      res.status(500).json({
-        error: "We failed our task"
+  if (questionMemory){
+    res.render("display-question", questionMemory)
+  }
+  else{
+    getQuestion().then(function(questionJson) {
+        res.render("display-question", questionJson);
+      })
+      .catch(function(error) {
+        res.status(500).json({
+          error: "We failed our task"
+        });
       });
-    });
+    }
 });
 
 
@@ -45,11 +51,12 @@ var getQuestion = function() {
           seenQuestions.push(question);
 
           let questionJson = {
-            score: 0,
+            score,
             question,
             optionsToDisplay,
           };
 
+          questionMemory = questionJson;
           resolve(questionJson);
         }
 
