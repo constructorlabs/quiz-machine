@@ -10,6 +10,7 @@ const randomiseAnswers = answerHelpers.randomiseAnswers;
 let score = 0;
 let seenQuestions = [];
 let questionMemory;
+let questionDifficulty = "easy"
 
 app.use(bodyParser.json()); // parse incoming JSON
 app.use('/static', express.static('static'));
@@ -34,7 +35,17 @@ app.get("/quiz", function(req, res) {
 
 var getQuestion = function() {
   return new Promise(function(resolve, reject) {
-    fetch('https://opentdb.com/api.php?amount=1&category=9&difficulty=easy&type=multiple')
+    if (score <= 10){
+      questionDifficulty = "easy";
+    }
+    else if (score <= 20){
+      questionDifficulty = "medium";
+    }
+    else {
+      questionDifficulty = "hard";
+    }
+
+    fetch(`https://opentdb.com/api.php?amount=1&category=9&difficulty=${questionDifficulty}&type=multiple`)
       .then(function(response) {
         return response.json();
       })
