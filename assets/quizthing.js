@@ -16,7 +16,7 @@ function getQuestionData () {
 }
 
 function renderQuestionData (data) {
-	document.getElementById('difficulty').innerHTML = `Difficulty: ${data.difficulty}`;
+	document.getElementById('difficulty-value').innerHTML = data.difficulty;
 	document.getElementById('question').innerHTML = data.question;
 
 	let answerCount = 0;
@@ -44,7 +44,8 @@ function renderQuestionData (data) {
 		answerChoiceBlock.appendChild(answerChoiceLabel);
 	});
 
-	document.getElementById('check-answer-button').style.visibility = 'visible';
+	document.getElementById('action-button').style.visibility = 'visible';
+	document.getElementById('result').style.visibility = 'hidden';
 }
 
 function checkAnswer () {
@@ -79,8 +80,21 @@ function renderAnswerResponse (data) {
 	let result = document.getElementById('result');
 
 	if (data.correct == 1) {
+		// To do:
+		// - update score
 		result.innerHTML = "That's right!";
+
+		let actionButton = document.getElementById('action-button');
+		actionButton.innerHTML = 'Next question';
+		actionButton.removeEventListener('click', {});
+		actionButton.addEventListener('click', () => {
+			getQuestionData();
+		});
 	} else {
+		// To do:
+		// - allow (answers-1) tries
+		// - if max tries hit, replace answer check button
+		//   with button for next question
 		result.innerHTML = "Sorry, try again.";
 	}
 
@@ -90,12 +104,11 @@ function renderAnswerResponse (data) {
 function prepPage () {
 	getQuestionData();
 
-	document.getElementById('check-answer-button').addEventListener('click', () => {
+	document.getElementById('action-button').addEventListener('click', () => {
 		checkAnswer();
-	})
+	});
 
-	document.getElementById('check-answer-button').style.visibility = 'hidden';
-	document.getElementById('result').style.visibility = 'hidden';
+	document.getElementById('action-button').style.visibility = 'hidden';
 }
 
 prepPage();

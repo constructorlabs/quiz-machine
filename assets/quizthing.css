@@ -1,15 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Arbutus+Slab|Fontdiner+Swanky');
+
 body {
 	margin: 1em;
 }
 
-* {
-	font-family: "Trebuchet MS", serif;
+div, button {
+	font-family: 'Arbutus Slab', serif;
+}
+
+h1 {
+	font-family: 'Fontdiner Swanky', serif;
+	font-size: 2.5em;
 }
 
 #difficulty {
 	margin: 1em 0;
-	text-transform: uppercase;
 	font-style: italic;
+}
+
+#difficulty-value {
+	display: inline;
+	font-weight: bold;
 }
 
 #question {
@@ -17,7 +28,7 @@ body {
 	font-weight: bold;
 }
 
-#check-answer-button {
+button {
 	background-color: #6cf;
 	border-top: none;
 	border-left: none;
@@ -26,6 +37,7 @@ body {
 	border-radius: 0.25em;
 	margin: 1em 0 0 0;
 	padding: 0.5em;
+	font-size: 1.25em;
 	font-weight: bold;
 	text-shadow: 0.05em 0.05em 0 rgba(255, 255, 255, 1);
 }

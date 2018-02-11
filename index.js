@@ -56,10 +56,14 @@ function shuffle (array) {
 		return array;
 }
 
-// Need to store the correct answer
-
 function fetchQuestionFromApi (req, res) {
-	let difficulty = 'easy';
+	let difficulty;
+	if (storage.difficulty) {
+		difficulty = storage.difficulty;
+	} else {
+		difficulty = 'easy';
+		storage.difficulty = difficulty;
+	}
 
 	let fetchUrl = `https://opentdb.com/api.php?amount=1&category=18&difficulty=${difficulty}`;
 
@@ -73,7 +77,8 @@ function fetchQuestionFromApi (req, res) {
 			res.json({
 				difficulty : difficulty,
 				question : json.results[0].question,
-				answers : mergeAnswers(json.results)
+				answers : mergeAnswers(json.results),
+				triesAllowed : json.results.length - 1
 			});
 		})
 		.catch(error => {
