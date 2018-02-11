@@ -50,7 +50,7 @@ var getQuestion = function() {
           // console.log(question);
 
           let questionJson = {
-            score : 0,
+            score: 0,
             question,
             optionsToDisplay,
           };
@@ -75,18 +75,13 @@ app.post("/answer", function(req, res, next) {
     score = 0;
   }
 
-
   getQuestion().then(function(question) {
-
 
     res.json({
       score,
       question,
     });
   });
-
-
-
 });
 
 
@@ -131,3 +126,6 @@ function randomiseAnswers(arrayOfAnswers) {
   }
   return arrayOfAnswers;
 }
+
+module.exports.randomiseAnswers = randomiseAnswers;
+module.exports.makeUpPotentialAnswersArray = makeUpPotentialAnswersArray;

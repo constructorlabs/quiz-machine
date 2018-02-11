@@ -2,9 +2,9 @@
   "name": "quiz-machine",
   "version": "1.0.0",
   "description": "For this weekend weekend project we will create a quiz app. Please implement features from the set below.",
-  "main": "index.js",
+  "main": "node-end.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,6 @@
     "node-fetch": "^2.0.0"
   },
   "devDependencies": {
-    "jest": "^22.2.1"
+    "jest": "^22.2.2"
   }
 }
