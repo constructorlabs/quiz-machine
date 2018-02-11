@@ -10,7 +10,24 @@ div, button {
 
 h1 {
 	font-family: 'Fontdiner Swanky', serif;
-	font-size: 2.5em;
+}
+
+@media (min-width: 768px) {
+	h1 {
+		font-size: 3.5em;
+	}
+}
+
+@media (max-width: 767px) {
+	h1 {
+		font-size: 2.5em;
+	}
+}
+
+@media (max-width: 575px) {
+	h1 {
+		font-size: 1.75em;
+	}
 }
 
 #difficulty-and-score {
@@ -40,14 +57,5 @@ button {
 	font-size: 1.25em;
 	font-weight: bold;
 	text-shadow: 0.05em 0.05em 0 rgba(255, 255, 255, 1);
-}
-
-#result {
-	margin: 1em auto;
-	padding: 1em;
-	width: 50%;
-	font-family: 'Fontdiner Swanky', serif;
-	font-weight: bold;
-	font-size: 1.5em;
-	text-align: center;
+	transform: rotate(-10deg);
 }

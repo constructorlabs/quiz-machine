@@ -74,8 +74,6 @@ function renderQuestionData (data) {
 	});
 
 	switchButtonToCheckAnswer();
-
-	document.getElementById('result').style.visibility = 'hidden';
 }
 
 function checkAnswer () {
@@ -107,39 +105,32 @@ function checkAnswer () {
 }
 
 function renderAnswerResponse (data) {
-	let result = document.getElementById('result');
-
 	if (data.correct == 1) {
-		result.innerHTML = 'That\'s right!';
 		switchButtonToNextQuestion();
 	} else {
 		if (data.triesMade < data.triesAllowed) {
-			result.innerHTML = 'Try again!';
+			switchButtonToCheckAnswer(1);
 		} else {
 			// To do:
 			// - keep track of tried answers and highlight
 			//   the right one at this point
 			// - reset score to 0
-			result.innerHTML = 'Sorry, you didn\'t get it.';
-			switchButtonToNextQuestion();
+			switchButtonToNextQuestion(1);
 		}
 	}
-
-	result.style.border = '4px dashed #000';
-	result.style.visibility = 'visible';
 }
 
-function switchButtonToCheckAnswer () {
+function switchButtonToCheckAnswer (retry) {
 	let actionButton = document.getElementById('action-button');
-	actionButton.innerHTML = 'Check answer';
+	actionButton.innerHTML = retry ? 'Try again!' : 'Check answer';
 	actionButton.style.backgroundColor = '#6fc';
 	actionButton.removeEventListener('click', getQuestionDataListener);
 	actionButton.addEventListener('click', checkAnswerListener);
 }
 
-function switchButtonToNextQuestion () {
+function switchButtonToNextQuestion (failed) {
 	let actionButton = document.getElementById('action-button');
-	actionButton.innerHTML = 'Next question';
+	actionButton.innerHTML = failed ? 'Sorry, you didn\'t get it.' : 'You got it!';
 	actionButton.style.backgroundColor = '#6cf';
 	actionButton.removeEventListener('click', checkAnswerListener);
 	actionButton.addEventListener('click', getQuestionDataListener);
