@@ -74,8 +74,15 @@ function fetchStoredQuestion (req, res) {
 
 function fetchNewQuestion (req, res) {
 	// To do: user chooses
-	if (!storage.difficulty) storage.difficulty = 'easy';
 	if (!storage.category) storage.category = 18;
+
+	if (storage.score >= 20) {
+		storage.difficulty = 'hard';
+	} else if (storage.score >= 10) {
+		storage.difficulty = 'medium';
+	} else {
+		storage.difficulty = 'easy';
+	}
 
 	let fetchUrl = 'https://opentdb.com/api.php?amount=1&category='
 	 + storage.category + '&difficulty=' + storage.difficulty;
@@ -85,20 +92,26 @@ function fetchNewQuestion (req, res) {
 			return response.json();
 		})
 		.then(json => {
-			let answers = mergeAnswers(json.results);
-			storage.question = json.results[0].question;
-			storage.answers = answers;
-			storage.correctAnswer = json.results[0].correct_answer;
-			storage.triesAllowed = answers.length - 1;
+			let questionReceived = json.results[0].question;
 
-			res.json({
-				difficulty : storage.difficulty,
-				category : storage.category,
-				question : storage.question,
-				answers : storage.answers,
-				score : storage.score,
-				triesAllowed : storage.triesAllowed
-			});
+			if (questionReceived == storage.question) {
+				fetchNewQuestion(res, req);
+			} else {
+				let answers = mergeAnswers(json.results);
+				storage.question = questionReceived;
+				storage.answers = answers;
+				storage.correctAnswer = json.results[0].correct_answer;
+				storage.triesAllowed = answers.length - 1;
+
+				res.json({
+					difficulty : storage.difficulty,
+					category : storage.category,
+					question : storage.question,
+					answers : storage.answers,
+					score : storage.score,
+					triesAllowed : storage.triesAllowed
+				});
+			}
 		})
 		.catch(error => {
 			res.status(500).json(
