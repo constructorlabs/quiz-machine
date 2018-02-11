@@ -29,6 +29,8 @@ function sendInfo(event){
         document.getElementById(`answer${i}`).value = optionsToDisplayArray[i].correct;
       }
 
+      document.getElementById("score-tracker").innerHTML = data.score;
+
   }) // JSON from `response.json()` call
     .catch(error => console.error(error))
 
