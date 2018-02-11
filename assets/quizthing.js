@@ -24,9 +24,7 @@ function getCurrentQuestion () {
 			renderQuestionData(json);
 		})
 		.catch(error => {
-			res.status(500).json(
-				{ error: `Couldn't get question: ${fetchUrl}` }
-			);
+			document.write(`Couldn't get question: ${fetchUrl}`);
 		});
 }
 
@@ -41,14 +39,13 @@ function getQuestionData () {
 			renderQuestionData(json);
 		})
 		.catch(error => {
-			res.status(500).json(
-				{ error: `Couldn't get question: ${fetchUrl}` }
-			);
+			document.write(`Couldn't get question: ${fetchUrl}`);
 		});
 }
 
 function renderQuestionData (data) {
 	document.getElementById('difficulty-value').innerHTML = data.difficulty;
+	document.getElementById('questions-answered').innerHTML = data.score;
 	document.getElementById('question').innerHTML = data.question;
 
 	let answerCount = 0;
@@ -104,7 +101,7 @@ function checkAnswer () {
 			renderAnswerResponse(json);
 		})
 		.catch(error => {
-			document.write(`Couldn't get questions: ${fetchUrl}`);
+			document.write(`Couldn't get question: ${fetchUrl}`);
 		});
 }
 

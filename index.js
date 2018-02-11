@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 const app = express();
 
 const storage = {
-	questionsAnswered : 0
+	score : 0
 };
 
 app.use(bodyParser.json());
@@ -61,6 +61,7 @@ function fetchStoredQuestion (req, res) {
 		res.json({
 			difficulty : storage.difficulty,
 			question : storage.question,
+			score : storage.score,
 			answers : storage.answers,
 			triesAllowed : storage.triesAllowed
 		});
@@ -90,10 +91,12 @@ function fetchNewQuestion (req, res) {
 			storage.question = json.results[0].question;
 			storage.answers = answers;
 			storage.correctAnswer = json.results[0].correct_answer;
+			score = storage.score;
 
 			res.json({
 				difficulty : difficulty,
 				question : json.results[0].question,
+				score : score,
 				answers : answers,
 				triesAllowed : json.results.length - 1
 			});
@@ -106,7 +109,13 @@ function fetchNewQuestion (req, res) {
 }
 
 function checkAnswer (req, res) {
-	let correct = req.body.check === storage.correctAnswer ? 1 : 0;
+	let correct = 0;
+
+	if (req.body.check === storage.correctAnswer) {
+		correct = 1;
+		storage.score++;
+	}
+
 	res.json({ 'correct' : correct });
 }
 

@@ -13,12 +13,12 @@ h1 {
 	font-size: 2.5em;
 }
 
-#difficulty {
+#difficulty-and-score {
 	margin: 1em 0;
 	font-style: italic;
 }
 
-#difficulty-value {
+#difficulty-value, #questions-answered {
 	display: inline;
 	font-weight: bold;
 }
