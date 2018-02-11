@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const fetch = require('node-fetch');
 
-let currentQuestion = 0;
+
 let score = 0;
+let seenQuestions = [];
 
 app.use(bodyParser.json()); // parse incoming JSON
 app.use('/static', express.static('static'));
@@ -50,15 +51,26 @@ var getQuestion = function () {
 
       let question =json.results[0].question;
 
-      console.log('have a question');
-      console.log(question);
+      console.log(seenQuestions);
 
-      let questionJson = {
-        question,
-        optionsToDisplay,
-      };
+      if (seenQuestions.indexOf(question) > -1) {
+        console.log("question that is already there: ",  question);
+        resolve(getQuestion());
+      }
+      else {
+        seenQuestions.push(question);
 
-      resolve(questionJson);
+        console.log('have a question');
+        console.log(question);
+
+        let questionJson = {
+          question,
+          optionsToDisplay,
+        };
+
+        resolve(questionJson);
+      }
+
     });
 });
 }
