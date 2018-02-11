@@ -20,7 +20,7 @@ app.get('/temp', function(req, res) {
     return response.json();
   }).then(function(json){
     let data = json.results[0];
-    res.render('quizViewerTemplate', data);
+    res.render('quizViewer', data);
   }).catch(function(error){
     res.status(500).json({ error: 'We failed to fetch the question' });
   });
@@ -29,6 +29,7 @@ app.get('/temp', function(req, res) {
 app.get('/', function(req, res) {
   res.render('mainPage', req.body);
 });
+
 
 app.get('/get-question', function(req, res) {
   if (storage.currentQuestion === null) {
@@ -45,6 +46,21 @@ app.get('/get-question', function(req, res) {
   }
 });
 
+//app.post('/answer-question', ...)
+//param = answer
+//checks if answer is correct
+//resets currentQuestion
+//ups counter if correct
+//resets counter if wrong
+//res Yay/Nay + points
+
+
+
+
+
+
+
+
 // app.post('/', function(req, res) {
 //   fetch('https://opentdb.com/api.php?amount=1')
 //   .then(function(response){
@@ -52,7 +68,7 @@ app.get('/get-question', function(req, res) {
 //   }).then(function(json){
 //     let data = json.results[0];
 //     let question = data.question;
-//     res.render('quizViewerTemplate', data);
+//     res.render('quizViewer', data);
 //   }).catch(function(error){
 //     res.status(500).json({ error: 'We failed to fetch the question' });
 //   });
