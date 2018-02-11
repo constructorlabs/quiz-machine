@@ -2,21 +2,21 @@
 
 For this weekend weekend project we will create a quiz app. Please implement features from the set below.
 
-* Fork and clone the repo at [https://github.com/constructorlabs/quiz-machine](https://github.com/constructorlabs/quiz-machine)
+* [v] Fork and clone the repo at [https://github.com/constructorlabs/quiz-machine](https://github.com/constructorlabs/quiz-machine)
 * Implement unit tests as part of code and ensure a high code coverage
 * App should use a responsive layout and work well at all screen sizes. It should also look fun and appealing
 * Avoid external JS libraries. Standard Express support libraries, charting or responsive grid libraries are ok
 * Use a Node Express server to fetch data from Open Trivia Database using their API - [https://opentdb.com/api\_config.php](https://opentdb.com/api_config.php)
-* On initial load it should render a page using node and display the first question
-* Subsequent questions should be rendered in browser
+* [v] On initial load it should render a page using node and display the first question
+* [v] Subsequent questions should be rendered in browser
 * On submit notify user if their answer was correct.
-* Each correct answer should increment the score. It's up to you how you want to score answers. You could apply a different score for different difficulty grades. After each correct answer display the next question  
+* [v] Each correct answer should increment the score. It's up to you how you want to score answers. You could apply a different score for different difficulty grades. After each correct answer display the next question  
   Hint: You can use server-side global variable object to store data
-* Reset the score on an incorrect answer
+* [v] Reset the score on an incorrect answer
 * Gradually increment difficulty level
 * It should display same question on refresh
 * Allow user to select question category
-* Avoid duplicate questions in a single session
+* [v] Avoid duplicate questions in a single session
 * Gracefully handle any errors
 
 Extensions
