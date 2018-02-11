@@ -5,7 +5,8 @@ const fetch = require('node-fetch');
 const app = express();
 
 const storage = {
-	score : 0
+	score : 0,
+	triesMade : 0
 };
 
 app.use(bodyParser.json());
@@ -63,7 +64,8 @@ function fetchStoredQuestion (req, res) {
 			question : storage.question,
 			score : storage.score,
 			answers : storage.answers,
-			triesAllowed : storage.triesAllowed
+			triesAllowed : storage.triesAllowed,
+			triesMade : storage.triesMade
 		});
 	} else {
 		fetchNewQuestion(req, res);
@@ -71,15 +73,12 @@ function fetchStoredQuestion (req, res) {
 }
 
 function fetchNewQuestion (req, res) {
-	let difficulty = undefined, category = undefined;
-
+	// To do: user chooses
 	if (!storage.difficulty) storage.difficulty = 'easy';
-	difficulty = storage.difficulty;
-
 	if (!storage.category) storage.category = 18;
-	category = storage.category;
 
-	let fetchUrl = `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}`;
+	let fetchUrl = 'https://opentdb.com/api.php?amount=1&category='
+	 + storage.category + '&difficulty=' + storage.difficulty;
 
 	fetch(fetchUrl)
 		.then(response => {
@@ -90,14 +89,15 @@ function fetchNewQuestion (req, res) {
 			storage.question = json.results[0].question;
 			storage.answers = answers;
 			storage.correctAnswer = json.results[0].correct_answer;
-			score = storage.score;
+			storage.triesAllowed = answers.length - 1;
 
 			res.json({
-				difficulty : difficulty,
-				question : json.results[0].question,
-				score : score,
-				answers : answers,
-				triesAllowed : json.results.length - 1
+				difficulty : storage.difficulty,
+				category : storage.category,
+				question : storage.question,
+				answers : storage.answers,
+				score : storage.score,
+				triesAllowed : storage.triesAllowed
 			});
 		})
 		.catch(error => {
@@ -114,9 +114,16 @@ function checkAnswer (req, res) {
 	if (req.body.check === storage.correctAnswer) {
 		correct = 1;
 		storage.score++;
+		storage.triesMade = 0;
+	} else {
+		storage.triesMade++;;
 	}
 
-	res.json({ 'correct' : correct });
+	res.json({
+		correct : correct,
+		triesAllowed : storage.triesAllowed,
+		triesMade : storage.triesMade
+	});
 }
 
 // --------------------------------------------------------------------------

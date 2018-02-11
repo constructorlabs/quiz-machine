@@ -73,10 +73,7 @@ function renderQuestionData (data) {
 		answerChoiceBlock.appendChild(answerChoiceLabel);
 	});
 
-	let actionButton = document.getElementById('action-button');
-	actionButton.innerHTML = 'Check answer';
-	actionButton.removeEventListener('click', getQuestionDataListener);
-	actionButton.addEventListener('click', checkAnswerListener);
+	switchButtonToCheckAnswer();
 
 	document.getElementById('result').style.visibility = 'hidden';
 }
@@ -113,24 +110,39 @@ function renderAnswerResponse (data) {
 	let result = document.getElementById('result');
 
 	if (data.correct == 1) {
-		// To do:
-		// - update score
 		result.innerHTML = 'That\'s right!';
-
-		let actionButton = document.getElementById('action-button');
-		actionButton.innerHTML = 'Next question';
-		actionButton.removeEventListener('click', checkAnswerListener);
-		actionButton.addEventListener('click', getQuestionDataListener);
+		switchButtonToNextQuestion();
 	} else {
-		// To do:
-		// - allow (answers-1) tries
-		// - if max tries hit, replace answer check button
-		//   with button for next question
-		result.innerHTML = 'Try again!';
+		if (data.triesMade < data.triesAllowed) {
+			result.innerHTML = 'Try again!';
+		} else {
+			// To do:
+			// - keep track of tried answers and highlight
+			//   the right one at this point
+			// - reset score to 0
+			result.innerHTML = 'Sorry, you didn\'t get it.';
+			switchButtonToNextQuestion();
+		}
 	}
 
 	result.style.border = '4px dashed #000';
 	result.style.visibility = 'visible';
+}
+
+function switchButtonToCheckAnswer () {
+	let actionButton = document.getElementById('action-button');
+	actionButton.innerHTML = 'Check answer';
+	actionButton.style.backgroundColor = '#6fc';
+	actionButton.removeEventListener('click', getQuestionDataListener);
+	actionButton.addEventListener('click', checkAnswerListener);
+}
+
+function switchButtonToNextQuestion () {
+	let actionButton = document.getElementById('action-button');
+	actionButton.innerHTML = 'Next question';
+	actionButton.style.backgroundColor = '#6cf';
+	actionButton.removeEventListener('click', checkAnswerListener);
+	actionButton.addEventListener('click', getQuestionDataListener);
 }
 
 function checkAnswerListener () {
