@@ -87,7 +87,6 @@ function fetchNewQuestion (req, res) {
 		})
 		.then(json => {
 			let answers = mergeAnswers(json.results);
-
 			storage.question = json.results[0].question;
 			storage.answers = answers;
 			storage.correctAnswer = json.results[0].correct_answer;

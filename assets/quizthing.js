@@ -73,7 +73,11 @@ function renderQuestionData (data) {
 		answerChoiceBlock.appendChild(answerChoiceLabel);
 	});
 
-	document.getElementById('action-button').style.visibility = 'visible';
+	let actionButton = document.getElementById('action-button');
+	actionButton.innerHTML = 'Check answer';
+	actionButton.removeEventListener('click', getQuestionDataListener);
+	actionButton.addEventListener('click', checkAnswerListener);
+
 	document.getElementById('result').style.visibility = 'hidden';
 }
 
@@ -115,10 +119,8 @@ function renderAnswerResponse (data) {
 
 		let actionButton = document.getElementById('action-button');
 		actionButton.innerHTML = 'Next question';
-		actionButton.removeEventListener('click', {});
-		actionButton.addEventListener('click', () => {
-			getQuestionData();
-		});
+		actionButton.removeEventListener('click', checkAnswerListener);
+		actionButton.addEventListener('click', getQuestionDataListener);
 	} else {
 		// To do:
 		// - allow (answers-1) tries
@@ -127,17 +129,22 @@ function renderAnswerResponse (data) {
 		result.innerHTML = "Sorry, try again.";
 	}
 
+	result.style.border = '4px dashed #000';
 	result.style.visibility = 'visible';
+}
+
+function checkAnswerListener () {
+	checkAnswer();
+}
+
+function getQuestionDataListener () {
+	getQuestionData();
 }
 
 function prepPage () {
 	getCurrentQuestion();
 
-	document.getElementById('action-button').addEventListener('click', () => {
-		checkAnswer();
-	});
-
-	document.getElementById('action-button').style.visibility = 'hidden';
+	document.getElementById('action-button').addEventListener('click', checkAnswerListener);
 }
 
 prepPage();
