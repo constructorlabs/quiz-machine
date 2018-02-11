@@ -1,7 +1,5 @@
-// Need to store the correct answer
-
-function getQuestionData () {
-	let fetchUrl = 'http://localhost:8080/questionData';
+function getCurrentQuestion () {
+	let fetchUrl = 'http://localhost:8080/currentQuestion';
 
 	fetch(fetchUrl)
 		.then(response => {
@@ -11,7 +9,41 @@ function getQuestionData () {
 			renderQuestionData(json);
 		})
 		.catch(error => {
-			document.write(`Couldn't get questions: ${fetchUrl}`);
+			document.write(`Couldn't get question: ${fetchUrl}`);
+		});
+}
+
+function getCurrentQuestion () {
+	let fetchUrl = 'http://localhost:8080/currentQuestion';
+
+	fetch(fetchUrl)
+		.then(response => {
+			return response.json();
+		})
+		.then(json => {
+			renderQuestionData(json);
+		})
+		.catch(error => {
+			res.status(500).json(
+				{ error: `Couldn't get question: ${fetchUrl}` }
+			);
+		});
+}
+
+function getQuestionData () {
+	let fetchUrl = 'http://localhost:8080/newQuestion';
+
+	fetch(fetchUrl)
+		.then(response => {
+			return response.json();
+		})
+		.then(json => {
+			renderQuestionData(json);
+		})
+		.catch(error => {
+			res.status(500).json(
+				{ error: `Couldn't get question: ${fetchUrl}` }
+			);
 		});
 }
 
@@ -102,7 +134,7 @@ function renderAnswerResponse (data) {
 }
 
 function prepPage () {
-	getQuestionData();
+	getCurrentQuestion();
 
 	document.getElementById('action-button').addEventListener('click', () => {
 		checkAnswer();

@@ -25,12 +25,12 @@ app.get('/', (req, res) => {
 	res.render('home');
 });
 
-app.get('/questionData', (req, res) => {
-	fetchQuestionFromApi(req, res);
+app.get('/currentQuestion', (req, res) => {
+	fetchStoredQuestion(req, res);
 });
 
-app.get('/datatest', (req, res) => {
-	res.render('datatest');
+app.get('/newQuestion', (req, res) => {
+	fetchNewQuestion(req, res);
 });
 
 app.post('/checkAnswer', (req, res) => {
@@ -56,7 +56,20 @@ function shuffle (array) {
 		return array;
 }
 
-function fetchQuestionFromApi (req, res) {
+function fetchStoredQuestion (req, res) {
+	if (storage.question) {
+		res.json({
+			difficulty : storage.difficulty,
+			question : storage.question,
+			answers : storage.answers,
+			triesAllowed : storage.triesAllowed
+		});
+	} else {
+		fetchNewQuestion(req, res);
+	};
+}
+
+function fetchNewQuestion (req, res) {
 	let difficulty;
 	if (storage.difficulty) {
 		difficulty = storage.difficulty;
@@ -72,12 +85,16 @@ function fetchQuestionFromApi (req, res) {
 			return response.json();
 		})
 		.then(json => {
+			let answers = mergeAnswers(json.results);
+
+			storage.question = json.results[0].question;
+			storage.answers = answers;
 			storage.correctAnswer = json.results[0].correct_answer;
 
 			res.json({
 				difficulty : difficulty,
 				question : json.results[0].question,
-				answers : mergeAnswers(json.results),
+				answers : answers,
 				triesAllowed : json.results.length - 1
 			});
 		})
