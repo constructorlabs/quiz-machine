@@ -9,9 +9,6 @@ function sendInfo(event){
   console.log(answerList);
   var isTrue = (checkForSelection() == 'true')
 
-
-
-
   postData('http://localhost:8080/answer', {answer: isTrue})
     .then(function(data){
 
