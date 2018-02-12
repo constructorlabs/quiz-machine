@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link href="./static/main.css" rel="stylesheet">
+
       <title>QuizMachine</title>
     </head>
     <body>
+      <div class="container">
+        <div class="row">
+          <div class="col">
         <h2 id="question-text">{{{question}}}</h2>
+      </div>
+    </div>
+    <div class="row score-tracker-div">
+      <div clss="col">
+        <h2 id="score-tracker">{{{score}}}</h2>
+      </div>
+    </div>
+
+    <div class="row questionOptionsDiv">
+      <div class="col">
         <form id="questionBox">
           {{#each optionsToDisplay}}
             <input type="radio" name="question" class="answers" id="answer{{{@index}}}" value="{{{this.correct}}}">
@@ -14,8 +35,18 @@
 
           <button type="submit">Submit Answer</button>
         </form>
-        <h2 id="score-tracker">{{{score}}}</h2>
-
+      </div>
+      </div>
+      <div class="row successGIF">
+        <div class="col">
+          <img src="../images/yes.gif" alt="Success animation">
+        </div>
+      </div>
+      <div class="row failureGIF">
+        <div class="col">
+          <img src="../images/drWho-no.gif" alt="Failure animation">
+        </div>
+      </div>
         <script src="/static/browser-end.js"></script>
     </body>
 </html>

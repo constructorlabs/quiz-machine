@@ -1,0 +1,15 @@
+.successGIF{
+  display: none;
+}
+
+.failureGIF{
+  display: none;
+}
+
+#questionBox{
+margin-left: 20px;
+}
+
+.score-tracker-div{
+  align: center;
+}
