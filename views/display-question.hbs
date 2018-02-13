@@ -16,10 +16,18 @@
       <div class="container category">
         <div class="row">
           <div class="col">
+            <p>Click here to change question category</p>
           </div>
         </div>
         <div class="row category-picker">
           <div class="col">
+            <select name="categories">
+            {{#each categoryOptions}}
+              <option value="{{{this.id}}}">{{{this.name}}}</option>
+              <br/>
+            {{/each}}
+
+            </select>
           </div>
         </div>
       </div>

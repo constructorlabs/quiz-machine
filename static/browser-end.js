@@ -103,3 +103,23 @@ function showAndHide(rightOrWrong, callback){
     callback();
   }, 3000);
 }
+
+
+
+var categoryListenerDiv = document.getElementsByClassName("category")[0];
+
+categoryListenerDiv.addEventListener("click", toggleCatPicker);
+
+function toggleCatPicker(event){
+  event.preventDefault();
+
+  var catPickerDiv = document.getElementsByClassName("category-picker")[0];
+
+  var currentVisibility = catPickerDiv.style.display;
+
+  if (catPickerDiv.style.display == "" || catPickerDiv.style.display == "none"){
+    catPickerDiv.style.display = "block";
+  } else {
+    catPickerDiv.style.display = "none";
+  }
+}
