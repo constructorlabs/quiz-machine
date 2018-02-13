@@ -6,20 +6,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato|Arapey|Cinzel|Allerta+Stencil|Diplomata" rel="stylesheet">
     <link rel="stylesheet" href="static/style.css">
-    <title>Quizmaster</title>
+    <title>Quiz Master</title>
   </head>
   <body>
 
-    <div class="quizContent">
+    <div class="quizContent" id="mainPageQuestionDisplay">
       <div class="quizText">
-        <h1>Welcome to QUIZMASTER</h1>
+        <h1>Welcome to QUIZ MASTER</h1>
+        <h3>Are you ready to quiz?</h3>
+        <button type="button" name="button" class="btn btn-dark">Get a question</button>
         <h3>Here is a question: </h3>
         <h3>{{{question}}}</h3>
 
         <h3>Answers: </h3>
 
         <form>
-          <input type="radio">{{correct_answer}}
+          <input type="radio">{{{correct_answer}}}
+
 
 
         </form>
