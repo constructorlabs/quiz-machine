@@ -9,44 +9,32 @@ function sendInfo(event){
   console.log(answerList);
   var isTrue = (checkForSelection() == 'true')
 
-  postData('http://localhost:8080/answer', {answer: isTrue})
-    .then(function(data){
+  showAndHide(isTrue, function(){
+    postData('http://localhost:8080/answer', {answer: isTrue})
+      .then(function(data){
 
-      console.log(data)
-      console.log(data.question)
+        console.log(data)
+        console.log(data.question)
 
-      removeSelection();
+        removeSelection();
 
-      document.getElementById("question-text").innerHTML = data.question.question;
+        document.getElementById("question-text").innerHTML = data.question.question;
 
-      var optionsToDisplayArray = data.question.optionsToDisplay;
+        var optionsToDisplayArray = data.question.optionsToDisplay;
 
-      for (let i = 0; i< optionsToDisplayArray.length; i++){
-        document.getElementById(`label${i}`).innerHTML = optionsToDisplayArray[i].answer;
-        document.getElementById(`answer${i}`).value = optionsToDisplayArray[i].correct;
-      }
+        for (let i = 0; i< optionsToDisplayArray.length; i++){
+          document.getElementById(`label${i}`).innerHTML = optionsToDisplayArray[i].answer;
+          document.getElementById(`answer${i}`).value = optionsToDisplayArray[i].correct;
+        }
 
-      document.getElementById("score-tracker").innerHTML = data.score;
+        document.getElementById("score-tracker").innerHTML = data.score;
 
-  }) // JSON from `response.json()` call
-    .catch(error => console.error(error))
-
-
-
-
-  if(isTrue){
-    console.log("correct");
-    // tell the server we have correct answer
-    // create a fetch to report the correct answer (increment points and fetch a new question)
-
-    // create a route ON SERVER that will increment the score and fetch another question and return the question in JSON format - simple res.JSON in second then
-
-  } else {
-    console.log("wrong. Boo");
-  }
-
+        }) // JSON from `response.json()` call
+      .catch(error => console.error(error))
+  })
 }
 
+//----------------------------------
 
 function postData(url, data) {
   // Default options are marked with *
@@ -88,4 +76,30 @@ function removeSelection(){
       item.checked = false;
     }
   });
+}
+
+function show(rightOrWrong){
+  if(rightOrWrong){
+    document.getElementsByClassName("successGIF")[0].style.display = "block";
+  }
+  else{
+    document.getElementsByClassName("failureGIF")[0].style.display = "block";
+  }
+}
+
+function hide(rightOrWrong){
+  if(rightOrWrong){
+    document.getElementsByClassName("successGIF")[0].style.display = "none";
+  }
+  else{
+    document.getElementsByClassName("failureGIF")[0].style.display = "none";
+  }
+}
+
+function showAndHide(rightOrWrong, callback){
+  show(rightOrWrong);
+  setTimeout(function(){
+    hide(rightOrWrong);
+    callback();
+  }, 3000);
 }

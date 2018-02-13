@@ -89,7 +89,7 @@ app.post("/answer", function(req, res, next) {
   }
 
   getQuestion().then(function(question) {
-
+    console.log(score);
     res.json({
       score,
       question,
