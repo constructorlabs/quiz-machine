@@ -13,21 +13,24 @@
       <title>QuizMachine</title>
     </head>
     <body>
-      <div class="container category">
-        <div class="row">
+      <div class="container">
+        <div class="row category">
           <div class="col">
             <p>Click here to change question category</p>
           </div>
         </div>
         <div class="row category-picker">
           <div class="col">
+            <form id="category-selection">
             <select name="categories">
             {{#each categoryOptions}}
-              <option value="{{{this.id}}}">{{{this.name}}}</option>
+              <option class="cat" value="{{{this.id}}}">{{{this.name}}}</option>
               <br/>
             {{/each}}
 
-            </select>
+          </select>
+            <button type="submit">Confirm new category</button>
+          </form>
           </div>
         </div>
       </div>

@@ -124,3 +124,17 @@ app.post("/answer", function(req, res, next) {
     });
   });
 });
+
+app.post("/category", function(req,res){
+  console.log(req.body.newCat);
+  currentCategory = req.body.newCat;
+
+  getQuestion().then(function(question) {
+    console.log(score);
+    res.json({
+      score,
+      question,
+    });
+  });
+
+})

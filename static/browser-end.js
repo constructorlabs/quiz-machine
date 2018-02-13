@@ -123,3 +123,49 @@ function toggleCatPicker(event){
     catPickerDiv.style.display = "none";
   }
 }
+
+
+var categoryPickingForm = document.getElementById("category-selection");
+var catList = document.getElementsByClassName("cat");
+
+categoryPickingForm.addEventListener("submit", setNewCategory);
+
+function setNewCategory(event){
+  event.preventDefault();
+  let newCat = checkForSelectionCategory();
+
+  postData("http://localhost:8080/category", {newCat: newCat})
+  .then(function(data){
+
+    console.log(data)
+    console.log(data.question)
+
+    removeSelection();
+
+    document.getElementById("question-text").innerHTML = data.question.question;
+
+    var optionsToDisplayArray = data.question.optionsToDisplay;
+
+    for (let i = 0; i< optionsToDisplayArray.length; i++){
+      document.getElementById(`label${i}`).innerHTML = optionsToDisplayArray[i].answer;
+      document.getElementById(`answer${i}`).value = optionsToDisplayArray[i].correct;
+    }
+
+    document.getElementById("score-tracker").innerHTML = data.score;
+
+    }) // JSON from `response.json()` call
+  .catch(error => console.error(error))
+}
+
+function checkForSelectionCategory(){
+  var itemValue;
+
+  Array.from(catList).forEach(function(item){
+    if(item.selected){
+      console.log(item.value);
+      itemValue = item.value;
+    }
+  });
+
+  return itemValue;
+}
