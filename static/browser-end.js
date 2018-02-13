@@ -153,6 +153,8 @@ function setNewCategory(event){
 
     document.getElementById("score-tracker").innerHTML = data.score;
 
+    document.getElementsByClassName("category-picker")[0].style.display = "none";
+
     }) // JSON from `response.json()` call
   .catch(error => console.error(error))
 }
