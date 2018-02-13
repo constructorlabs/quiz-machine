@@ -1,0 +1,54 @@
+body, html {
+  margin: 0;
+  height: 100%;
+}
+
+#quizTitle {
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 60px;
+  font-family: 'Special Elite', cursive, monospace;
+}
+
+.quizContent {
+  background-image: url("/static/images/jad-limcaco-254927.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.quizText {
+  text-align: center;
+  position: absolute;
+  font-family: 'Lato', sans-serif, monospace;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+button {
+  border: none;
+  outline: 1px;
+  display: inline-block;
+  padding: 10px 25px;
+  color: black;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px #000000
+}
+
+button:hover {
+  background-color: #ddd;
+  color: white;
+}
+
+#rightWrong {
+  margin: 10px 0px 10px 0px;
+}

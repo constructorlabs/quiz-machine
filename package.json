@@ -1,0 +1,29 @@
+{
+  "name": "quiz-machine",
+  "version": "1.0.0",
+  "description": "For this weekend weekend project we will create a quiz app. Please implement features from the set below.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathildepind/quiz-machine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mathildepind/quiz-machine/issues"
+  },
+  "homepage": "https://github.com/mathildepind/quiz-machine#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "hbs": "^4.0.1",
+    "node-fetch": "^2.0.0"
+  },
+  "devDependencies": {
+    "jest": "^22.2.1"
+  }
+}
