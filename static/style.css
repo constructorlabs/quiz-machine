@@ -51,4 +51,26 @@ button:hover {
 
 #rightWrong {
   margin: 10px 0px 10px 0px;
+  transition-delay: 2s;
+}
+
+#link-button {
+  border: none;
+  outline: 1px;
+  display: inline-block;
+  padding: 10px 25px;
+  color: black;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px #000000
+}
+
+#link-button:hover {
+  background-color: #ddd;
+  color: white;
+}
+
+a {
+  text-shadow: none;
 }

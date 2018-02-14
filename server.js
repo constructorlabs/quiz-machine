@@ -15,9 +15,13 @@ app.set('view engine', 'hbs');
 app.use('/static', express.static('static'));
 
 
+app.get('/', function(req, res) {
+  res.render('first-page', req.body);
+});
 
+// get on initial load
 app.get('/quiz', function(req,res) {
-  fetch('https://opentdb.com/api.php?amount=1&type=multiple')
+  fetch('https://opentdb.com/api.php?amount=1&category=9&type=multiple')
   .then(function(response){
     return response.json();
   }).then(function(json){
@@ -29,23 +33,19 @@ app.get('/quiz', function(req,res) {
 });
 
 
-// app.get('/get-next-question', function(req, res) {
-//
-// })
-
-
+// get when fetch call from client
 app.get('/check-answer/:answer', function(req, res) {
   let answer = req.params.answer;
   if (answer === "correct") {
     storage.counter += 1;
-    // get client to display counter
+    // response to client with counter
     //fetch new question from API
     fetch('https://opentdb.com/api.php?amount=1&type=multiple')
     .then(function(response){
       return response.json();
     }).then(function(json){
       let data = json.results[0];
-      data.counter = storage.counter
+      data.counter = storage.counter;
       res.json(data);
     }).catch(function(error){
       res.status(500).json({ error: 'We failed to fetch the question' });
@@ -57,12 +57,11 @@ app.get('/check-answer/:answer', function(req, res) {
       return response.json();
     }).then(function(json){
       let data = json.results[0];
-      data.counter = storage.counter
+      data.counter = storage.counter;
       res.json(data);
     }).catch(function(error){
       res.status(500).json({ error: 'We failed to fetch the question' });
     });
-    //do something else
   }
 })
 
@@ -70,25 +69,33 @@ app.get('/check-answer/:answer', function(req, res) {
 
 
 
+
+// app.get('/get-next-question', function(req, res) {
+//
+// })
+
 //
 // app.get('/', function(req, res) {
 //   res.render('mainPage', req.body);
 // });
 
 
-// app.get('/get-question', function(req, res) {
-//   if (storage.currentQuestion === null) {
-//     fetch('https://opentdb.com/api.php?amount=1')
-//     .then(function(response){
-//       return response.json();
-//     }).then(function(data){
-//       res.json(data.results[0]);
-//     });
-//   }
-//   else {
-//     res.json(storage.currentQuestion);
-//   }
-// });
+app.get('/get-question', function(req, res) {
+  if (storage.currentQuestion === null) {
+    fetch('https://opentdb.com/api.php?amount=1&type=multiple')
+    .then(function(response){
+      return response.json();
+    }).then(function(json){
+      //res.json(data.results[0]);
+      let data = json.results[0];
+      res.render('mainPage', data);
+    });
+  }
+  else {
+    //res.json(storage.currentQuestion);
+    res.render(storage.currentQuestion);
+  }
+});
 
 
 //app.post('/answer-question', ...)
