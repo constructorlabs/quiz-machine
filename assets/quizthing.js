@@ -1,64 +1,19 @@
-function getCurrentQuestion () {
-	let fetchUrl = 'http://localhost:8080/currentQuestion';
+function fetchQuestionAndRender (questionType) {
+	let fetchUrl = 'http://localhost:8080/' + questionType;
 
 	fetch(fetchUrl)
 		.then(response => {
 			return response.json();
 		})
 		.then(json => {
-			renderQuestionData(json);
+			renderQuestion(json);
 		})
 		.catch(error => {
 			document.write(`Couldn't get question: ${fetchUrl}`);
 		});
 }
 
-function getCurrentQuestion () {
-	let fetchUrl = 'http://localhost:8080/currentQuestion';
-
-	fetch(fetchUrl)
-		.then(response => {
-			return response.json();
-		})
-		.then(json => {
-			renderQuestionData(json);
-		})
-		.catch(error => {
-			document.write(`Couldn't get question: ${fetchUrl}`);
-		});
-}
-
-function getQuestionData () {
-	let fetchUrl = 'http://localhost:8080/newQuestion';
-
-	fetch(fetchUrl)
-		.then(response => {
-			return response.json();
-		})
-		.then(json => {
-			renderQuestionData(json);
-		})
-		.catch(error => {
-			document.write(`Couldn't get question: ${fetchUrl}`);
-		});
-}
-
-function startOver () {
-	let fetchUrl = 'http://localhost:8080/startOver';
-
-	fetch(fetchUrl)
-		.then(response => {
-			return response.json();
-		})
-		.then(json => {
-			renderQuestionData(json);
-		})
-		.catch(error => {
-			document.write(`Couldn't get question: ${fetchUrl}`);
-		});
-}
-
-function renderQuestionData (data) {
+function renderQuestion (data) {
 	document.getElementById('difficulty-value').innerHTML = data.difficulty;
 	document.getElementById('questions-answered').innerHTML = data.score;
 	document.getElementById('question').innerHTML = data.question;
@@ -88,7 +43,7 @@ function renderQuestionData (data) {
 		answerChoiceBlock.appendChild(answerChoiceLabel);
 	});
 
-	switchButton('Check answer', '#6fc', getQuestionDataListener, checkAnswerListener);
+	switchButton('Check answer', '#6fc', newQuestionListener, checkAnswerListener);
 }
 
 function checkAnswer () {
@@ -121,10 +76,10 @@ function checkAnswer () {
 
 function renderAnswerResponse (data) {
 	if (data.correct == 1) {
-		switchButton('You got it!', '#6cf', checkAnswerListener, getQuestionDataListener);
+		switchButton('You got it!', '#6cf', checkAnswerListener, newQuestionListener);
 	} else {
 		if (data.triesMade < data.triesAllowed) {
-			switchButton('Try again!', '#6fc', getQuestionDataListener, checkAnswerListener)
+			switchButton('Try again!', '#6fc', newQuestionListener, checkAnswerListener)
 		} else {
 			switchButton('Sorry, you didn\'t get it.', '#6cf', checkAnswerListener, startOverListener);
 		}
@@ -143,16 +98,16 @@ function checkAnswerListener () {
 	checkAnswer();
 }
 
-function getQuestionDataListener () {
-	getQuestionData();
+function newQuestionListener () {
+	fetchQuestionAndRender('newQuestion');
 }
 
 function startOverListener () {
-	startOver();
+	fetchQuestionAndRender('startOver');
 }
 
 function prepPage () {
-	getCurrentQuestion();
+	fetchQuestionAndRender('currentQuestion');
 
 	document.getElementById('action-button').addEventListener('click', checkAnswerListener);
 }
