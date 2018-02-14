@@ -15,14 +15,14 @@ For this weekend weekend project we will create a quiz app. Please implement fea
 - [v] Reset the score on an incorrect answer
 - [v] Gradually increment difficulty level
 - [v] It should display same question on refresh
-- Allow user to select question category
+- [v] Allow user to select question category
 - [v] Avoid duplicate questions in a single session
 - Gracefully handle any errors
 
 Extensions
 
 - Implement an extension of your choosing
-- Show the user a 'happy' animated gif on a correct answer and a 'sad' gif on incorrect answer. You can use Giphy or other API to source gifs
+- [v] Show the user a 'happy' animated gif on a correct answer and a 'sad' gif on incorrect answer. You can use Giphy or other API to source gifs
 - Implement a high score table, which displays names of players with highest scores as well as the time and date of their score
 - Display statistics about player performance such as total questions played, average score, most popular category, category with highest percentage of correct etc.
 

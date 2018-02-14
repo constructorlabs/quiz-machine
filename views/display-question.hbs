@@ -54,8 +54,9 @@
       <div class="col">
         <form id="questionBox">
           {{#each optionsToDisplay}}
-            <input type="radio" name="question" class="answers" id="answer{{{@index}}}" value="{{{this.correct}}}">
-            <label id="label{{{@index}}}">{{{this.answer}}}</label>
+            <label id="label{{{@index}}}">
+              <input type="radio" name="question" class="answers" id="answer{{{@index}}}" value="{{{this.correct}}}">
+            {{{this.answer}}}</label>
             <br/>
           {{/each}}
 
