@@ -13,21 +13,10 @@ function sendInfo(event){
     postData('http://localhost:8080/answer', {answer: isTrue})
       .then(function(data){
 
-        console.log(data)
-        console.log(data.question)
+        console.log(data);
+        console.log(data.question);
 
-        removeSelection();
-
-        document.getElementById("question-text").innerHTML = data.question.question;
-
-        var optionsToDisplayArray = data.question.optionsToDisplay;
-
-        for (let i = 0; i< optionsToDisplayArray.length; i++){
-          document.getElementById(`label${i}`).innerHTML = optionsToDisplayArray[i].answer;
-          document.getElementById(`answer${i}`).value = optionsToDisplayArray[i].correct;
-        }
-
-        document.getElementById("score-tracker").innerHTML = data.score;
+        manipulateDomToUpdateQuestion(data);
 
         }) // JSON from `response.json()` call
       .catch(error => console.error(error))
@@ -140,18 +129,7 @@ function setNewCategory(event){
     console.log(data)
     console.log(data.question)
 
-    removeSelection();
-
-    document.getElementById("question-text").innerHTML = data.question.question;
-
-    var optionsToDisplayArray = data.question.optionsToDisplay;
-
-    for (let i = 0; i< optionsToDisplayArray.length; i++){
-      document.getElementById(`label${i}`).innerHTML = optionsToDisplayArray[i].answer;
-      document.getElementById(`answer${i}`).value = optionsToDisplayArray[i].correct;
-    }
-
-    document.getElementById("score-tracker").innerHTML = data.score;
+    manipulateDomToUpdateQuestion(data);
 
     document.getElementsByClassName("category-picker")[0].style.display = "none";
 
@@ -170,4 +148,22 @@ function checkForSelectionCategory(){
   });
 
   return itemValue;
+}
+
+
+
+function manipulateDomToUpdateQuestion(data){
+
+  removeSelection();
+
+  document.getElementById("question-text").innerHTML = data.question.question;
+
+  var optionsToDisplayArray = data.question.optionsToDisplay;
+
+  for (let i = 0; i< optionsToDisplayArray.length; i++){
+    document.getElementById(`label${i}`).innerHTML = optionsToDisplayArray[i].answer;
+    document.getElementById(`answer${i}`).value = optionsToDisplayArray[i].correct;
+  }
+
+  document.getElementById("score-tracker").innerHTML = data.score;
 }
