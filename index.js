@@ -54,11 +54,11 @@ function mergeAnswers (input) {
 
 // https://stackoverflow.com/a/12646864/3358139
 function shuffle (array) {
-		for (let i = array.length - 1; i > 0; i--) {
-				let j = Math.floor(Math.random() * (i + 1));
-				[array[i], array[j]] = [array[j], array[i]];
-		}
-		return array;
+	for (let i = array.length - 1; i > 0; i--) {
+		let j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+	return array;
 }
 
 function fetchStoredQuestion (req, res) {
@@ -129,7 +129,6 @@ function fetchNewQuestion (req, res, startOver) {
 function checkAnswer (req, res) {
 	let correct = 0;
 
-	// To do: bump difficulty at 10, 20
 	if (req.body.check === storage.correctAnswer) {
 		correct = 1;
 		storage.score++;
