@@ -60,8 +60,8 @@ function displayQuestionAndAnswers(displayData) {
   answerGroup.appendChild(shuffledAnswers[3]);
 
   document.getElementById('points').innerHTML = "Your score is" + " " + displayData.counter;
- }
 
+ }
 
 
 //eventListener that listens for clicks on answerbuttons
@@ -82,24 +82,29 @@ function checkAnswerAndGetNewQuestion(event) {
   //if wrong answer: 1. fetch request to webserver to reset counter 2.display counter with reset points 3.calls server to get next question
   event.preventDefault();
 
+  console.log(this);
+
   let answer = event.target;
   if (answer.getAttribute('id') === 'correct') {
     document.getElementById('rightWrong').innerHTML = "CORRECT!";
-
+    //document.getElementById('points').innerHTML = 
+    document.getElementById('');
+    console.log(document.getElementById('level'));
     fetch('/check-answer/correct')
     .then(function(response){
       return response.json();
     }).then(function(newData){
-      setTimeout(function() {displayQuestionAndAnswers(newData);}, 500);
+      setTimeout(function() {displayQuestionAndAnswers(newData);}, 100);
       //displayQuestionAndAnswers(newData);
     })
   }
   else if (answer.getAttribute('id') === 'wrong'){
+
     document.getElementById('rightWrong').innerHTML = "OH NO! Wrong answer!";
-    
     let shouldHaveAnswered = document.getElementById('correct').innerHTML;
     document.getElementById('correctAnswerWhenWrong').innerHTML = 'The correct answer was: ' + shouldHaveAnswered;
-    document.getElementById('points').innerHTML = "Your score is " + 0;
+    //document.getElementById('points').innerHTML = "Your score is " + 0;
+    document.getElementById('points').innerHTML = "You lost one point";
     fetch('/check-answer/wrong')
     .then(function(response){
       return response.json();
@@ -110,6 +115,14 @@ function checkAnswerAndGetNewQuestion(event) {
   }
 
 }
+
+
+let buttons = document.querySelectorAll('.optionFormButton');
+console.log(buttons);
+buttons.forEach(button => button.addEventListener('click', function(){
+
+  console.log(this.dataset.id);
+}));
 
 
 

@@ -17,15 +17,16 @@
           <div class="container" >
           <h3 id="question">{{{question}}}</h3>
           <form class="optionsForm" action="index.html" method="post" id="formWithAnswers">
-            <button type="button" class="btn btn-lg btn-block" id="correct">{{{correct_answer}}}</button>
-            <button type="button" class="btn btn-lg btn-block" id="wrong">{{{incorrect_answers.[0]}}}</button>
-            <button type="button" class="btn btn-lg btn-block" id="wrong">{{{incorrect_answers.[1]}}}</button>
-            <button type="button" class="btn btn-lg btn-block" id="wrong">{{{incorrect_answers.[2]}}}</button>
+            <button type="button" class="btn btn-lg btn-block optionFormButton" data-id="1" id="correct">{{{correct_answer}}}</button>
+            <button type="button" class="btn btn-lg btn-block optionFormButton" data-id="2" id="wrong">{{{incorrect_answers.[0]}}}</button>
+            <button type="button" class="btn btn-lg btn-block optionFormButton" data-id="3" id="wrong">{{{incorrect_answers.[1]}}}</button>
+            <button type="button" class="btn btn-lg btn-block optionFormButton" data-id="4" id="wrong">{{{incorrect_answers.[2]}}}</button>
           </form>
 
           <h4 id="rightWrong"></h4>
           <h4 id="correctAnswerWhenWrong"></h4>
           <h4 id="points">{{counter}}</h4>
+          <h4 id="level">{{level}}</h4>
           </div>
         </div>
 
