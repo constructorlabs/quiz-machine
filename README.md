@@ -1,35 +1,19 @@
-# Quiz machine
+# QuizThing
 
-For this weekend weekend project we will create a quiz app. Please implement features from the set below.
+A quiz game application - made as a weekend project for week 3 of
+[Constructor Labs](https://constructorlabs.com/).
 
-* Fork and clone the repo at [https://github.com/constructorlabs/quiz-machine](https://github.com/constructorlabs/quiz-machine)
-* Implement unit tests as part of code and ensure a high code coverage
-* App should use a responsive layout and work well at all screen sizes. It should also look fun and appealing
-* Avoid external JS libraries. Standard Express support libraries, charting or responsive grid libraries are ok
-* Use a Node Express server to fetch data from Open Trivia Database using their API - [https://opentdb.com/api\_config.php](https://opentdb.com/api_config.php)
-* On initial load it should render a page using node and display the first question
-* Subsequent questions should be rendered in browser
-* On submit notify user if their answer was correct.
-* Each correct answer should increment the score. It's up to you how you want to score answers. You could apply a different score for different difficulty grades. After each correct answer display the next question  
-  Hint: You can use server-side global variable object to store data
-* Reset the score on an incorrect answer
-* Gradually increment difficulty level
-* It should display same question on refresh
-* Allow user to select question category
-* Avoid duplicate questions in a single session
-* Gracefully handle any errors
+The app presents a series of multiple questions loaded from the [Open Trivia
+Database](https://opentdb.com/) API, on the topic of computer programming.
+The user must select one and press the _check answer_ button. If it's the
+correct answer, the button will change to say _You got it!_ and can be pressed
+again to load another question. The user's score is displayed and will go up
+by 1 for every question answered. The questions begin at easy difficulty, and
+will change to medium and then difficult after each 10 correct answers. The
+user has the opportunity to make up to 3 incorrect tries for a 4-answer
+question, or 1 try for a 2-answer question. If this limit is reached, the
+message _Sorry, you didn't get it_ is displayed and the score reset to 0.
 
-Extensions
-
-* Implement an extension of your choosing
-* Show the user a 'happy' animated gif on a correct answer and a 'sad' gif on incorrect answer. You can use Giphy or other API to source gifs
-* Implement a high score table, which displays names of players with highest scores as well as the time and date of their score
-* Display statistics about player performance such as total questions played, average score, most popular category, category with highest percentage of correct etc.
-
-Submission
-
-* Document your solution in a README.md
-* Make frequent commits, at least after each feature and push to origin
-* Create a pull request after first push
-* Don't commit external dependencies. Use .gitignore
-* Include your unit test coverage in README.md
+The app is built on the Express webserver framework and responsive CSS is used
+to ensure it looks good at desktop and mobile sizes. To run the app, run
+`node server.js` in the root directory, then browse to `http://localhost:8080`.
